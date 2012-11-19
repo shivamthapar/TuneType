@@ -1,0 +1,12 @@
+{% if title %}
+    <h1>{{title}}</h1>
+    <p>{{entry.media.title.text}}</p>
+	<object width="640" height="360">
+	  <param name="movie" value="{{url}}"></param>
+	  <param name="allowFullScreen" value="true"></param>
+	  <param name="allowScriptAccess" value="always"></param>
+	  <embed src="{{url}}" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="360"></embed>
+	</object>
+{% else %}
+    <p>No title is available.</p>
+{% endif %}

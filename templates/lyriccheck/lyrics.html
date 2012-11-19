@@ -1,0 +1,45 @@
+<html>
+<head>
+	<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen" >
+	<link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" media="screen" >
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.js"></script>
+    <script src="{{STATIC_URL}}js/levenshtein.js"></script>
+    <script src="{{STATIC_URL}}js/strcmp.js"></script>
+<script>
+	
+	//http://andrew.hedges.name/experiments/levenshtein/
+	var lyrics= "{{js_lyrics}}";
+	lyrics=lyrics.split("|");
+	var line_num=0;
+	var score=0;
+	function checkInput(e){
+		$a=$("#lyric_input")
+		b=lyrics[line_num];
+
+		if($a.val().length==b.length || e.keyCode == 13){			
+			var points=b.length-levenshteinenator($a.val(),b);
+			$a.val("");
+			$("#plus_points").fadeIn('slow');
+			$("#plus_points").fadeOut('slow');
+			$("#plus_points").html("+"+points+" points");
+			score+=points;
+			$("#score").html("Score: "+score);
+			line_num+=1;
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>{{artist}}</h1>
+	<h3>{{song}}</h3>	
+
+	<pre class= "lyrics span8">{{lyrics}}</pre>
+	<div id= "input_box" class="span4">
+		<input type="text" placeholder="type lyrics..." id= "lyric_input" onKeyDown="checkInput(event)" >
+		<div class="alert alert-success" id="plus_points"></div>
+		<h3 class="well" id= "score">Score: 0</h3>
+	</div>
+
+</body>
+</html>
