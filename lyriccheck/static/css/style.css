@@ -7,18 +7,14 @@
 }
 #input_box #plus_points{
 	display: none;
-	width: 25%;
 	float: right;
 	margin: 0px;
 }
 #input_box #lyric_input{
-	width: 100%;
 }
 #input_box #score{
 	margin: 0px;
 	float: left;
-	position: relative;
-	width: 100%;
 	text-align: right;
 	font-size: 16px;
 }
