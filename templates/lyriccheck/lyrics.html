@@ -48,8 +48,7 @@
 	}
 	function checkInput(e){
 		$a=$("#lyric_input");
-		b=removePunctuation(lyrics[line_num].toLowerCase());
-
+		b=formatLyrics(lyrics[line_num]);
 		if($a.val().length==b.length || e.keyCode == 13){			
 			var points=b.length-levenshteinenator($a.val(),b);
 			$a.val("");
@@ -61,7 +60,11 @@
 			if(line_num<lyrics.length)
 				line_num+=1;
 			reprintLyrics();
+			$("#accuracy h3").html(calculateAccuracy()+"%");
 		}
+	}
+	function formatLyrics(lyr){
+		return removePunctuation(lyr).toLowerCase();
 	}
 	function removePunctuation(str){
 		var punc= ['.',',','!','?','&#39;'];
@@ -72,13 +75,15 @@
 		}
 		return str;
 	}
-	function refreshModal(){
+	function calculateAccuracy(){
 		var chars=0;
-		for(var i=0;i<lyrics.length;i++){
-			chars+=lyrics[i].length;
+		for(var i=0;i<line_num;i++){
+			chars+=formatLyrics(lyrics[i]).length;
 		}
-		alert(chars);
-		var accuracy= Math.round(score/chars*100*100)/100;
+		return Math.round(score/chars*100*100)/100;
+	}
+	function refreshModal(){		
+		var accuracy= calculateAccuracy();
 		$("#accuracy_pts").html(accuracy+"%");
 		$("#accuracy_bar .bar").css("width", accuracy+"%");
 	}
@@ -88,7 +93,7 @@
 	<div class="navbar navbar-inverse">
 		<div class="navbar-inner" style= "border-radius: 0px; -webkit-border-radius: 0px;">
 	    	<div class="container">
-  				<a class="brand" href="#">TuneType</a>
+  				<a class="brand" href="{% url index %}">TuneType</a>
   			</div>
   		</div>
 	</div>
@@ -148,6 +153,7 @@
 			<div class= "span5 right">
 				<div class="alert alert-success" id="plus_points"></div>
 				<div id= "score"><h3>0</h3>pts.</div>
+				<div style= "text-align: center" id="accuracy"><label>Accuracy:</label><h3>0%</h3></div>
 			</div>
 
 			<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

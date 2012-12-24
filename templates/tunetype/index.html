@@ -6,22 +6,27 @@
     <script src="{{STATIC_URL}}js/bootstrap.js"></script>
     <script src="{{STATIC_URL}}js/levenshtein.js"></script>
     <script src="{{STATIC_URL}}js/strcmp.js"></script>
-    <script type= "text/javascript">
-    	var artists= ["The Beatles", "The Rolling Stones", "Pink Floyd", "Madonna", "Michael Jackson", "Led Zeppelin", "Tupac"];
-    	var songs= ["I Want to Hold Your Hand", "Satisfaction", "Comfortably Numb", "Holiday", "Thriller", "Stairway to Heaven", "Ambitionz as a Ridah"];
-    	var ind= Math.floor((Math.random()*7));
+    <script type= "text/javascript">    	
     	$(document).ready(function(){
+    		var artists= ["The Beatles", "The Rolling Stones", "Pink Floyd", "Madonna", "Michael Jackson", "Led Zeppelin", "Tupac"];
+	    	var songs= ["I Want to Hold Your Hand", "Satisfaction", "Comfortably Numb", "Holiday", "Thriller", "Stairway to Heaven", "Ambitionz as a Ridah"];
+	    	var ind= Math.floor((Math.random()*7));
     		$("#inputArtist").attr("placeholder", artists[ind]);
     		$("#inputSong").attr("placeholder", songs[ind]);
+    		$("#search").click(goToLyrics);
     	})
     	function toTitleCase(str)
 		{
-		    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()+"+";});
+			str=str.replace(/\b./g, function(m){ return m.toUpperCase(); });
+			str=str.replace(/\s/g, "+");
+		    return str;
 		}
 		function goToLyrics(){
-			var artist= toTitleCase($("#inputArtist").val());
-			var song= toTitleCase($("#inputSong").val());
-			window.location.href="http://127.0.0.1:8000/lyriccheck/"+artist+"/"+song+"/lyrics";
+    			var artist= toTitleCase($("#inputArtist").val());
+				var song= toTitleCase($("#inputSong").val());
+
+				window.location=encodeURI(window.location+"lyriccheck/"+artist+"/"+song+"/lyrics");
+				return false;
 		}
     </script>
 </head>
@@ -57,7 +62,7 @@
 				  </div>
 				  <div class="control-group">
 				    <div class="controls">
-				      <a href="" class="btn" onClick="goToLyrics()">Search</a>
+				      <button type="submit" id= "search" class="btn">Search</button>
 				    </div>
 				  </div>
 				</form>

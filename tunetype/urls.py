@@ -6,7 +6,7 @@ import views
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-	 url(r'^$',views.index),
+	 url(r'^$',views.index, name='index'),
      url(r'^lyriccheck/', include('lyriccheck.urls')),
     # url(r'^tunetype/', include('tunetype.foo.urls')),
 
