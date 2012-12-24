@@ -1,4 +1,6 @@
 # Django settings for tunetype project.
+import os 
+PROJECT_ROOT = os.path.dirname(__file__)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -113,7 +115,7 @@ ROOT_URLCONF = 'tunetype.urls'
 WSGI_APPLICATION = 'tunetype.wsgi.application'
 
 TEMPLATE_DIRS = (
-    "C:/Users/shivam/Documents/Django/tunetype/templates/",
+	os.path.join(PROJECT_ROOT, '../templates'),
 )
 
 
@@ -159,5 +161,6 @@ LOGGING = {
         },
     }
 }
+
 import dj_database_url
 DATABASES['default'] =  dj_database_url.config()
