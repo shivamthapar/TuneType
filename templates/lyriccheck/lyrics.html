@@ -7,15 +7,48 @@
     <script src="{{STATIC_URL}}js/levenshtein.js"></script>
     <script src="{{STATIC_URL}}js/strcmp.js"></script>
 <script>
-	
-	//http://andrew.hedges.name/experiments/levenshtein/
-	var lyrics= "{{js_lyrics}}";
-	lyrics=lyrics.split("|");
-	var line_num=0;
-	var score=0;
+	var lyrics, line_num, score;
+	$(document).ready(function(){
+		//http://andrew.hedges.name/experiments/levenshtein/
+		lyrics= "{{lyrics}}";
+		lyrics=lyrics.split("|");
+		line_num=0;
+		reprintLyrics();
+		score=0;
+		$("#lyric_input").focus();
+	})
+	function reprintLyrics(){
+		$line1=$("#line1");
+		$line2=$("#line2");
+		$line3=$("#line3");
+		if(line_num===0){
+			$(".line").removeClass("current");
+			$line1.html(lyrics[line_num]).addClass("current");
+			if(line_num+1<lyrics.length)
+				$line2.html(lyrics[line_num+1]);
+			if(line_num+2<lyrics.length)
+				$line3.html(lyrics[line_num+2]);
+		}
+		else if(line_num>=lyrics.length-1){
+			$(".line").removeClass("current");
+			$line3.html(lyrics[line_num]).addClass("current");
+			if(line_num-1<lyrics.length)
+				$line2.html(lyrics[line_num-1]);
+			if(line_num-2<lyrics.length)
+				$line1.html(lyrics[line_num-2]);
+		}
+		else{
+			$(".line").removeClass("current");
+			$line2.html(lyrics[line_num]).addClass("current");
+			if(line_num-1<lyrics.length)
+				$line1.html(lyrics[line_num-1]);
+			if(line_num+1<lyrics.length)
+				$line3.html(lyrics[line_num+1]);
+		}
+	}
 	function checkInput(e){
-		$a=$("#lyric_input")
-		b=lyrics[line_num];
+		$a=$("#lyric_input");
+		b=removePunctuation(lyrics[line_num].toLowerCase());
 
 		if($a.val().length==b.length || e.keyCode == 13){			
 			var points=b.length-levenshteinenator($a.val(),b);
@@ -24,9 +57,30 @@
 			$("#plus_points").fadeOut('slow');
 			$("#plus_points").html("+"+points+" points");
 			score+=points;
-			$("#score").html("Score: "+score);
-			line_num+=1;
+			$("#score h3").html(score);
+			if(line_num<lyrics.length)
+				line_num+=1;
+			reprintLyrics();
 		}
+	}
+	function removePunctuation(str){
+		var punc= ['.',',','!','?','&#39;'];
+		for (var i=0;i<punc.length;i++){
+			var ch= punc[i];
+			if (str.indexOf(ch)>=0)
+				str=str.replace(ch,'');
+		}
+		return str;
+	}
+	function refreshModal(){
+		var chars=0;
+		for(var i=0;i<lyrics.length;i++){
+			chars+=lyrics[i].length;
+		}
+		alert(chars);
+		var accuracy= Math.round(score/chars*100*100)/100;
+		$("#accuracy_pts").html(accuracy+"%");
+		$("#accuracy_bar .bar").css("width", accuracy+"%");
 	}
 </script>
 </head>
@@ -38,34 +92,82 @@
   			</div>
   		</div>
 	</div>
-	<div class="container-fluid">
-		<div class= "row-fluid">
+	<div class="container">
+		<div class= "row">
 			<div class= "span12">
 				<h1>{{artist}}</h1>
 				<h3>{{song}}</h3>	
 			</div>
 		</div>
-		<div class= "row-fluid">
-			<div class= "span12">
-				<object width="640" height="360">
-				  <param name="movie" value="{{video}}"></param>
-				  <param name="allowFullScreen" value="true"></param>
-				  <param name="allowScriptAccess" value="always"></param>
-				  <embed src="{{video}}" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="360"></embed>
-				</object>
+		<div class= "row">
+			<div class= "span7 left">
+				<div id="player"></div>
+				<script>
+				    //Load player api asynchronously.
+				    var tag = document.createElement('script');
+				    tag.src = "//www.youtube.com/iframe_api";
+				    var firstScriptTag = document.getElementsByTagName('script')[0];
+				    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+				    var done = false;
+				    var player;
+				    function onYouTubeIframeAPIReady() {
+				        player = new YT.Player('player', {
+				          height: '303',
+				          width: '100%',
+				          videoId: '{{video_id}}',
+				          events: {
+				            'onReady': onPlayerReady,
+				            'onStateChange': onPlayerStateChange
+				          }
+				        });
+				    }
+				    function onPlayerReady(evt) {
+				        evt.target.playVideo();
+				    }
+				    function onPlayerStateChange(evt) {
+				        if (evt.data == YT.PlayerState.ENDED && !done) {
+				            $('#myModal').modal();
+				           	refreshModal();
+				            done = true;
+				        }
+				    }
+				    function stopVideo() {
+				        player.stopVideo();
+				    }
+				</script>
+				<div class= "lyric_text">
+					
+					<p class= "line current" id= "line1">k</p>
+					<p class= "line" id= "line2"></p>
+					<p class= "line" id= "line3"></p>
+				</div>
+				<div id= "input_box">
+					<input type="text" placeholder="type lyrics..." id= "lyric_input" onKeyUp="checkInput(event)" >						
+				</div>
+			</div>
+			<div class= "span5 right">
+				<div class="alert alert-success" id="plus_points"></div>
+				<div id= "score"><h3>0</h3>pts.</div>
+			</div>
+
+			<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			    <h3 id="myModalLabel">Game Summary</h3>
+			  </div>
+			  <div class="modal-body">
+			    <label>Accuracy: </label><p id= "accuracy_pts"></p>
+			    <div class="progress" id= "accuracy_bar">
+				  <div class="bar" style="width: 0%;"></div>
+				</div>
+			  </div>
+			  <div class="modal-footer">
+			    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			  </div>
 			</div>
 		</div>
 		
-		<div class= "row-fluid">		
-			<div class= "left span6">
-				<pre class= "lyrics">{{lyrics}}</pre>
-			</div>
-			<div id= "input_box" class= "right span4">
-				<input type="text" class= "span12"placeholder="type lyrics..." id= "lyric_input" onKeyUp="checkInput(event)" >
-				<div class="alert alert-success span4" id="plus_points"></div>
-				<h3 class="well span12" id= "score">Score: 0</h3>
-			</div>
-		</div>
+		
 	</div>
 
 </body>

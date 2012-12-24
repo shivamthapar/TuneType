@@ -1,0 +1,69 @@
+<html>
+<head>
+	<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen" >
+	<link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" media="screen" >
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.js"></script>
+    <script src="{{STATIC_URL}}js/levenshtein.js"></script>
+    <script src="{{STATIC_URL}}js/strcmp.js"></script>
+    <script type= "text/javascript">
+    	var artists= ["The Beatles", "The Rolling Stones", "Pink Floyd", "Madonna", "Michael Jackson", "Led Zeppelin", "Tupac"];
+    	var songs= ["I Want to Hold Your Hand", "Satisfaction", "Comfortably Numb", "Holiday", "Thriller", "Stairway to Heaven", "Ambitionz as a Ridah"];
+    	var ind= Math.floor((Math.random()*7));
+    	$(document).ready(function(){
+    		$("#inputArtist").attr("placeholder", artists[ind]);
+    		$("#inputSong").attr("placeholder", songs[ind]);
+    	})
+    	function toTitleCase(str)
+		{
+		    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()+"+";});
+		}
+		function goToLyrics(){
+			var artist= toTitleCase($("#inputArtist").val());
+			var song= toTitleCase($("#inputSong").val());
+			window.location.href="http://127.0.0.1:8000/lyriccheck/"+artist+"/"+song+"/lyrics";
+		}
+    </script>
+</head>
+<body>
+	<div class="navbar navbar-inverse">
+		<div class="navbar-inner" style= "border-radius: 0px; -webkit-border-radius: 0px;">
+	    	<div class="container">
+  				<a class="brand" href="#">TuneType</a>
+  			</div>
+  		</div>
+	</div>
+	<div class="container">
+		<div class= "row">
+			<div class= "span12" style= "text-align: center">
+				<h1>TuneType</h1>
+				<h4 style="color: #D2D2DD">Type along to your favorite songs!</h3>
+			</div>
+		</div>
+		<div class= "row">
+			<div class= "span12" style= "text-align: center">
+				<form class="form">
+				  <div class="control-group">
+				    <label class="control-label" for="inputArtist">Artist</label>
+				    <div class="controls">
+				      <input type="text" id="inputArtist" placeholder="">
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="inputSong">Song</label>
+				    <div class="controls">
+				      <input type="text" id="inputSong" placeholder="">
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <div class="controls">
+				      <a href="" class="btn" onClick="goToLyrics()">Search</a>
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+</body>
+</head>
