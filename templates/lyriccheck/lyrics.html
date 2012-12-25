@@ -12,7 +12,19 @@
 		//http://andrew.hedges.name/experiments/levenshtein/
 		lyrics= "{{lyrics}}";
 		lyrics=lyrics.split("|");
+		$("#pregame").modal();
+		$("#lyrics_checkbox").attr("checked","checked");
 		line_num=0;
+		$("#lyrics_checkbox").change(function(){
+			if(!this.checked)	
+				$(".lyric_text").hide();
+			else
+				$(".lyric_text").show();
+		})
+		$('#pregame').on('hide', function () {
+			player.playVideo();
+		})
+		
 		reprintLyrics();
 		score=0;
 		$("#lyric_input").focus();
@@ -127,7 +139,6 @@
 				        });
 				    }
 				    function onPlayerReady(evt) {
-				        evt.target.playVideo();
 				    }
 				    function onPlayerStateChange(evt) {
 				        if (evt.data == YT.PlayerState.ENDED && !done) {
@@ -170,6 +181,23 @@
 			  <div class="modal-footer">
 			    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 			  </div>
+			</div>
+			<div id= "pregame" class= "modal">
+				 <div class="modal-header">
+				    <h3 id="myModalLabel">Pick your settings</h3>
+				 </div>
+				 <div class="modal-body">
+					 <h4>Practice Karaoke</h4>
+					 <h5>{{song}} by {{artist}}</h5>				 
+					 <form>
+					 	<label class="checkbox">
+						    <input id= "lyrics_checkbox" type="checkbox"> Show Lyrics
+						</label>
+					 </form>
+				</div>
+				 <div class="modal-footer">
+				    <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">Play!</button>
+				  </div>
 			</div>
 		</div>
 		
