@@ -9,7 +9,7 @@
     <script type= "text/javascript">    	
     	$(document).ready(function(){
     		var artists= ["The Beatles", "The Rolling Stones", "Pink Floyd", "Madonna", "Michael Jackson", "Led Zeppelin", "Tupac"];
-	    	var songs= ["I Want to Hold Your Hand", "Satisfaction", "Comfortably Numb", "Holiday", "Thriller", "Stairway to Heaven", "Ambitionz as a Ridah"];
+	    	var songs= ["I Want to Hold Your Hand", "Satisfaction", "Hey You", "Holiday", "Thriller", "Stairway to Heaven", "Ambitionz as a Ridah"];
 	    	var ind= Math.floor((Math.random()*7));
     		$("#inputArtist").attr("placeholder", artists[ind]);
     		$("#inputSong").attr("placeholder", songs[ind]);
@@ -30,11 +30,11 @@
 		}
     </script>
 </head>
-<body>
-	<div class="navbar navbar-inverse">
-		<div class="navbar-inner" style= "border-radius: 0px; -webkit-border-radius: 0px;">
+<body id="body">
+	<div id= "navbar" class="navbar navbar-inverse">
+		<div id= "navbar-inner" class="navbar-inner" style= "border-radius: 0px; -webkit-border-radius: 0px;">
 	    	<div class="container">
-  				<a class="brand" href="#">TuneType</a>
+  				<a class="brand" id= "logo" href="{% url index %}">TuneType</a>
   			</div>
   		</div>
 	</div>

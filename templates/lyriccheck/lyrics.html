@@ -1,11 +1,13 @@
 <html>
 <head>
-	<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen" >
+	<link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet" media="screen" >
 	<link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" media="screen" >
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="{{STATIC_URL}}js/bootstrap.js"></script>
     <script src="{{STATIC_URL}}js/levenshtein.js"></script>
     <script src="{{STATIC_URL}}js/strcmp.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Domine:400,700' rel='stylesheet' type='text/css'>
+
 <script>
 	var lyrics, line_num, score;
 	$(document).ready(function(){
@@ -101,13 +103,19 @@
 	}
 </script>
 </head>
-<body>
-	<div class="navbar navbar-inverse">
-		<div class="navbar-inner" style= "border-radius: 0px; -webkit-border-radius: 0px;">
+<body id= "body">
+	<div id= "navbar" class="navbar navbar-inverse">
+		<div id= "navbar-inner" class="navbar-inner" style= "border-radius: 0px; -webkit-border-radius: 0px;">
 	    	<div class="container">
-  				<a class="brand" href="{% url index %}">TuneType</a>
+  				<a class="brand" id= "logo" href="{% url index %}">TuneType</a>
   			</div>
   		</div>
+	</div>
+	<div class= "banner">
+		<div class="container">
+			<img src= "{{STATIC_URL}}img/swords.png" />
+			<h1>Training</h1>
+		</div>
 	</div>
 	<div class="container">
 		<div class= "row">
