@@ -32,7 +32,7 @@ def getVideo(artist, song):
 		import gdata.youtube.service
 
 		yt_service = gdata.youtube.service.YouTubeService()
-		search_terms= song+" "+artist+" official"
+		search_terms= song+" "+artist+" official music video"
 
 		# Turn on HTTPS/SSL access.
 		# Note: SSL is not available at this time for uploads.

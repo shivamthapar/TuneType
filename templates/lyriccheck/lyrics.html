@@ -27,6 +27,9 @@
 		
 		reprintLyrics();
 		score=0;
+		$('#pregame').on('hide', function () {
+						player.playVideo();
+					})
 		$("#lyric_input").focus();
 	})
 	function reprintLyrics(){
@@ -156,9 +159,7 @@
 				    function stopVideo() {
 				        player.stopVideo();
 				    }
-				    $('#pregame').on('hide', function () {
-						player.playVideo();
-					})
+
 				</script>
 				<div class= "lyric_text">
 					
