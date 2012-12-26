@@ -23,9 +23,7 @@
 			else
 				$(".lyric_text").show();
 		})
-		$('#pregame').on('hide', function () {
-			player.playVideo();
-		})
+		
 		
 		reprintLyrics();
 		score=0;
@@ -158,6 +156,9 @@
 				    function stopVideo() {
 				        player.stopVideo();
 				    }
+				    $('#pregame').on('hide', function () {
+						player.playVideo();
+					})
 				</script>
 				<div class= "lyric_text">
 					
