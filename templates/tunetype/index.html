@@ -51,33 +51,36 @@
 			</div>
 	</div>
 	<div class="container">
-		<div class= "row">
-			<div class= "span12" style= "text-align: center">
-				<h1>TuneType</h1>
-				<h4 style="color: #D2D2DD">Type along to your favorite songs!</h3>
+		<div id= "search_panel">
+			<div class= "row">
+				<div style= "text-align: center">
+					<h1>TuneType</h1>
+					<h4 style="color: #D2D2DD">Type along to your favorite songs!</h3>
+				</div>
 			</div>
-		</div>
-		<div class= "row">
-			<div class= "span12" style= "text-align: center">
-				<form class="form">
-				  <div class="control-group">
-				    <label class="control-label" for="inputArtist">Artist</label>
-				    <div class="controls">
-				      <input type="text" id="inputArtist" placeholder="">
-				    </div>
-				  </div>
-				  <div class="control-group">
-				    <label class="control-label" for="inputSong">Song</label>
-				    <div class="controls">
-				      <input type="text" id="inputSong" placeholder="">
-				    </div>
-				  </div>
-				  <div class="control-group">
-				    <div class="controls">
-				      <button type="submit" id= "search" class="btn">Search</button>
-				    </div>
-				  </div>
-				</form>
+			<div>
+				<div style= "text-align: center">
+					<form class="form">
+					  <div class="control-group">
+					    <label class="control-label" for="inputArtist">Artist</label>
+					    <div class="controls">
+					      <input type="text" id="inputArtist" placeholder="">
+					    </div>
+					  </div>
+					  <div class="control-group">
+					    <label class="control-label" for="inputSong">Song</label>
+					    <div class="controls">
+					      <input type="text" id="inputSong" placeholder="">
+					    </div>
+					  </div>
+					  <div class="control-group">
+					    <div class="controls">
+					      <button type="submit" id= "search" class="btn">Train</button>
+					      <a href="" id= "battle" class="btn btn-danger">Battle!</a>
+					    </div>
+					  </div>
+					</form>
+				</div>
 			</div>
 		</div>		
 	</div>
@@ -101,7 +104,8 @@
     	var ind= Math.floor((Math.random()*7));
 		$("#inputArtist").attr("placeholder", artists[ind]);
 		$("#inputSong").attr("placeholder", songs[ind]);
-		$("#search").click(goToLyrics);
+		$("#search").click(goToLyrics("training"));
+		$("#battle").click(goToLyrics("battle"));
 	})
 	function toTitleCase(str)
 	{
@@ -109,12 +113,16 @@
 		str=str.replace(/\s/g, "+");
 	    return str;
 	}
-	function goToLyrics(){
+	function goToLyrics(page){
+		return function(){
 			var artist= toTitleCase($("#inputArtist").val());
 			var song= toTitleCase($("#inputSong").val());
-
-			window.location=encodeURI(window.location+"training/"+artist+"/"+song+"/lyrics");
+			if(page=="training")
+				window.location=encodeURI(window.location+"training/"+artist+"/"+song+"/lyrics");
+			else if(page==="battle")
+				window.location=encodeURI(window.location+"battle/"+artist+"/"+song+"/lyrics");
 			return false;
+		}
 	}
 </script>
 {% endblock body %}

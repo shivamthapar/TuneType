@@ -98,10 +98,10 @@
 		return removePunctuation(lyr).toLowerCase();
 	}
 	function removePunctuation(str){
-		var punc= ['.',',','!','?','&#39;','-'];
+		var punc= ['.',',','!','?','&#39;','-', "'"];
 		for (var i=0;i<punc.length;i++){
 			var ch= punc[i];
-			if (str.indexOf(ch)>=0)
+			while(str.indexOf(ch)>=0)
 				str=str.replace(ch,'');
 		}
 		return str;
