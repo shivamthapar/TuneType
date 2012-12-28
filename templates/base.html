@@ -1,0 +1,57 @@
+<html>
+<head>
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>{% block page_title %}{% endblock %}|TuneType</title>
+    
+    <meta name="description" content="{% block meta_description %}Type the lyrics!{% endblock %}" />
+    <meta name="author" content="{% block meta_author %}Shivam Thapar{% endblock %}" />
+    <meta name="viewport" content="width=device-width" />
+
+	<link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet" media="screen" >
+	<link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" media="screen" >
+	<link href='http://fonts.googleapis.com/css?family=Domine:400,700' rel='stylesheet' type='text/css'>
+	{% block css %}{% endblock css %}
+
+	
+
+	
+</head>
+<body id= "body">
+{% block body %}
+	<div id= "navbar" class="navbar navbar-inverse">
+		<div id= "navbar-inner" class="navbar-inner" style= "border-radius: 0px; -webkit-border-radius: 0px;">
+	    	<div class="container">
+  				<a class="brand" id= "logo" href="{% url index %}">TuneType</a>
+  			</div>
+  		</div>
+	</div>
+	{% block banner %}
+	<div class= "banner">
+		<div class="container">
+			<img src= "{{STATIC_URL}}{% block banner_img %}{% endblock banner_img %}" />
+			<h1>{% block banner_title %}Training{% endblock banner_title %}</h1>
+		</div>
+	</div>
+	{% endblock banner %}
+	<div class="container">
+	{% block container %}
+
+	{% endblock container %}
+	</div>
+	{% block footer %}
+	<div class= "footer">
+		<div class= "container">
+			<h5 class= "footer_section">Built by <a href= "http://www.shivamthapar.com">Shivam Thapar</a></h5>
+		</div>
+	</div>
+	{% endblock footer %}
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.js"></script>
+    <script src="{{STATIC_URL}}js/levenshtein.js"></script>
+    <script src="{{STATIC_URL}}js/strcmp.js"></script>
+    {% block javascript %}
+    {% endblock javascript %}
+{% endblock body %}
+</body>
+</html>

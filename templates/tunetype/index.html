@@ -1,42 +1,54 @@
-<html>
-<head>
-	<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen" >
-	<link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" media="screen" >
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="{{STATIC_URL}}js/bootstrap.js"></script>
-    <script src="{{STATIC_URL}}js/levenshtein.js"></script>
-    <script src="{{STATIC_URL}}js/strcmp.js"></script>
-    <script type= "text/javascript">    	
-    	$(document).ready(function(){
-    		var artists= ["The Beatles", "The Rolling Stones", "Pink Floyd", "Madonna", "Michael Jackson", "Led Zeppelin", "Tupac"];
-	    	var songs= ["I Want to Hold Your Hand", "Satisfaction", "Hey You", "Holiday", "Thriller", "Stairway to Heaven", "Ambitionz as a Ridah"];
-	    	var ind= Math.floor((Math.random()*7));
-    		$("#inputArtist").attr("placeholder", artists[ind]);
-    		$("#inputSong").attr("placeholder", songs[ind]);
-    		$("#search").click(goToLyrics);
-    	})
-    	function toTitleCase(str)
-		{
-			str=str.replace(/\b./g, function(m){ return m.toUpperCase(); });
-			str=str.replace(/\s/g, "+");
-		    return str;
-		}
-		function goToLyrics(){
-    			var artist= toTitleCase($("#inputArtist").val());
-				var song= toTitleCase($("#inputSong").val());
+{% extends "base.html" %}
+{% block page_title %}Type along with your favorite lyrics!{% endblock page_title %}
+{% block css %}
+<style type="text/css">
+  /*Via twitter.github.com/bootstrap/examples/sticky-footer.html */
+  /* Sticky footer styles
+  -------------------------------------------------- */
 
-				window.location=encodeURI(window.location+"lyriccheck/"+artist+"/"+song+"/lyrics");
-				return false;
-		}
-    </script>
-</head>
-<body id="body">
+  html,
+  body {
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+  }
+
+  /* Wrapper for page content to push down footer */
+  #wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0 auto -40px;
+  }
+
+  /* Set the fixed height of the footer here */
+  #push,
+  #footer {
+    height: 40px;
+  }
+  #footer {
+  	margin-top: 0px;
+  }
+
+  /* Lastly, apply responsive CSS fixes as necessary */
+  @media (max-width: 767px) {
+    #footer {
+      margin-left: -20px;
+      margin-right: -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+</style>
+{% endblock css %}
+{% block body %}
+<div id= "wrap">
 	<div id= "navbar" class="navbar navbar-inverse">
 		<div id= "navbar-inner" class="navbar-inner" style= "border-radius: 0px; -webkit-border-radius: 0px;">
 	    	<div class="container">
-  				<a class="brand" id= "logo" href="{% url index %}">TuneType</a>
-  			</div>
-  		</div>
+					<a class="brand" id= "logo" href="{% url index %}">TuneType</a>
+				</div>
+			</div>
 	</div>
 	<div class="container">
 		<div class= "row">
@@ -67,8 +79,42 @@
 				  </div>
 				</form>
 			</div>
-		</div>
-		
+		</div>		
 	</div>
-</body>
-</head>
+	<div id="push"></div>
+</div>
+<div id= "footer" class= "footer">
+	<div class= "container">
+		<h5 class= "footer_section">Built by <a href= "http://www.shivamthapar.com">Shivam Thapar</a></h5>
+	</div>
+</div>
+
+<!--SCRIPTS -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="{{STATIC_URL}}js/bootstrap.js"></script>
+<script src="{{STATIC_URL}}js/levenshtein.js"></script>
+<script src="{{STATIC_URL}}js/strcmp.js"></script>
+<script type= "text/javascript">    	
+	$(document).ready(function(){
+		var artists= ["The Beatles", "The Rolling Stones", "Pink Floyd", "Madonna", "Michael Jackson", "Led Zeppelin", "Tupac"];
+    	var songs= ["I Want to Hold Your Hand", "Satisfaction", "Hey You", "Holiday", "Thriller", "Stairway to Heaven", "Ambitionz as a Ridah"];
+    	var ind= Math.floor((Math.random()*7));
+		$("#inputArtist").attr("placeholder", artists[ind]);
+		$("#inputSong").attr("placeholder", songs[ind]);
+		$("#search").click(goToLyrics);
+	})
+	function toTitleCase(str)
+	{
+		str=str.replace(/\b./g, function(m){ return m.toUpperCase(); });
+		str=str.replace(/\s/g, "+");
+	    return str;
+	}
+	function goToLyrics(){
+			var artist= toTitleCase($("#inputArtist").val());
+			var song= toTitleCase($("#inputSong").val());
+
+			window.location=encodeURI(window.location+"training/"+artist+"/"+song+"/lyrics");
+			return false;
+	}
+</script>
+{% endblock body %}
