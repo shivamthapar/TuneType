@@ -29,9 +29,11 @@ function onLyricsLoad(lyr){
 	$('#pregame').on('hide', function () {
 		player.playVideo();			
 		reprintLyrics();
+		$("#lyric_input").focus();
 			
 	})
-	$("#lyric_input").focus();
+	coin_sound= document.getElementById('coin_sound');
+	coin_sound.volume= 0.2;
 }
 function reprintLyrics(){
 	if(punctuation){
@@ -75,7 +77,9 @@ function checkInput(e){
 	var same_length= $a.val().length===b.length;
 	var enter_pressed= e.keyCode == 13;
 	if((lyrics_showing&&enter_pressed)||(!lyrics_showing&&same_length)){
-		//http://andrew.hedges.name/experiments/levenshtein/			
+		//http://andrew.hedges.name/experiments/levenshtein/
+		coin_sound.load();
+		coin_sound.play();
 		var points=b.length-levenshteinenator($a.val(),b);
 		$a.val("");
 		$("#plus_points").fadeIn('slow');
