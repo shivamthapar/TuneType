@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block page_title %}Training: {{song}} by {{artist}} {% endblock page_title %}
 {% block javascript %}
+{% block battle %}active{% endblock battle %}
 <script>
-	var lyrics, line_num, score, punctuation, lyrics_showing;
+	var lyrics, line_num, score, punctuation, lyrics_showing, grunt;
 	window.Player= {
 		userId: Math.floor(Math.random() * 10000000),
-        opponentId: null
+        opponentId: null,
+        opponentScore: 0
 	}
 	$(document).ready(function(){
 		onLyricsLoad("{{lyrics}}");		
@@ -70,13 +72,22 @@
 			<p class= "line" id= "line3"></p>
 		</div>
 		<div id= "input_box">
-			<input type="text" placeholder="type lyrics..." id= "lyric_input" onKeyUp="checkInput(event)" >						
+			<input type="text" placeholder="type lyrics..." id= "lyric_input" onKeyUp="checkInput(event, afterInputBattle)" >						
 		</div>
 	</div>
 	<div class= "span5 right">
-		<div class="alert alert-success" id="plus_points"></div>
-		<div id= "score"><h3>0</h3>pts.</div>
-		<div style= "text-align: center" id="accuracy"><label>Accuracy:</label><h3>0%</h3></div>
+		<div id= "player_stats">
+			<h2>Player name</h2>
+			<div class="alert alert-success plus_points"></div>
+			<div class= "score"><h3>0</h3>pts.</div>
+			<div style= "text-align: center" class="accuracy"><label>Accuracy:</label><h3>0%</h3></div>
+		</div>
+		<div id= "opponent_stats">
+			<h2>Opponent</h2>
+			<div class="alert alert-success plus_points"></div>
+			<div class= "score"><h3>0</h3>pts.</div>
+			<div style= "text-align: center" class="accuracy"><label>Accuracy:</label><h3>0%</h3></div>
+		</div>
 	</div>
 
 	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -115,4 +126,14 @@
 		  </div>
 	</div>
 </div>
+<audio id="coin_sound">
+	  <source src="{{STATIC_URL}}misc/coin_sound.ogg" type="audio/ogg">
+	  <source src="{{STATIC_URL}}misc/coin_sound.mp3" type="audio/mpeg">
+	Your browser does not support the audio element.
+</audio>
+<audio id="grunt">
+	  <source src="{{STATIC_URL}}misc/grunt.ogg" type="audio/ogg">
+	  <source src="{{STATIC_URL}}misc/grunt.mp3" type="audio/mpeg">
+	Your browser does not support the audio element.
+</audio>
 {% endblock container %}

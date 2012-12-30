@@ -64,13 +64,15 @@
 			<p class= "line" id= "line3"></p>
 		</div>
 		<div id= "input_box">
-			<input type="text" placeholder="type lyrics..." id= "lyric_input" onKeyUp="checkInput(event)" >						
+			<input type="text" placeholder="type lyrics..." id= "lyric_input" onKeyUp="checkInput(event, afterInputTraining)" >						
 		</div>
 	</div>
 	<div class= "span5 right">
-		<div class="alert alert-success" id="plus_points"></div>
-		<div id= "score"><h3>0</h3>pts.</div>
-		<div style= "text-align: center" id="accuracy"><label>Accuracy:</label><h3>0%</h3></div>
+		<div id= "player_stats">
+			<div class="alert alert-success plus_points"></div>
+			<div class= "score"><h3>0</h3>pts.</div>
+			<div style= "text-align: center" class="accuracy"><label>Accuracy:</label><h3>0%</h3></div>
+		</div>
 	</div>
 
 	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -87,11 +89,7 @@
 	  <div class="modal-footer">
 	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 	  </div>
-	  <audio id="coin_sound">
-		  <source src="{{STATIC_URL}}misc/coin_sound.ogg" type="audio/ogg">
-		  <source src="{{STATIC_URL}}misc/coin_sound.mp3" type="audio/mpeg">
-		Your browser does not support the audio element.
-		</audio>
+	  
 	</div>
 	<div id= "pregame" class= "modal">
 		 <div class="modal-header">
@@ -113,6 +111,11 @@
 		    <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">Play!</button>
 		  </div>
 	</div>
-
+	<audio id="coin_sound">
+	  <source src="{{STATIC_URL}}misc/coin_sound.ogg" type="audio/ogg">
+	  <source src="{{STATIC_URL}}misc/coin_sound.mp3" type="audio/mpeg">
+	Your browser does not support the audio element.
+	</audio>
 </div>
+
 {% endblock container %}

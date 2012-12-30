@@ -36,7 +36,10 @@
 
                 case 'opponent_score':
                     if (message.userId == Player.userId){
-                        alert('Opponent Scored!');
+                        grunt= document.getElementById('grunt');
+                        setOpponentStats(message.opponentPoints);
+                        grunt.load();
+                        grunt.play();
                     }
 
             }
@@ -53,9 +56,21 @@
         connect    : function() {        // CONNECTION ESTABLISHED.
             publish('opponent_requested', {userId: Player.userId});
         }
-    });
-
-    function publish(event, data){
+    });    
+}());
+function setOpponentStats(points){
+	Player.opponentScore+=points;
+	$plus_pts= $("#opponent_stats .plus_points");
+	$plus_pts.fadeIn('slow');
+	$plus_pts.fadeOut('slow');
+	$plus_pts.html("+"+points+" points");
+	$("#opponent_stats .score h3").html(Player.opponentScore);
+	if(line_num<lyrics.length)
+		line_num+=1;
+	reprintLyrics();
+	$("#player_stats .accuracy h3").html(calculateAccuracy()+"%");
+}
+function publish(event, data){
         data.name = event;
 
         PUBNUB.publish({             // SEND A MESSAGE.
@@ -63,4 +78,7 @@
             message : data
         });
     }
-}());
+function afterInputBattle(points){
+	afterInputTraining(points);
+	publish('opponent_score', {opponentId: Player.userId, userId: Player.opponentId, opponentPoints: points});
+}

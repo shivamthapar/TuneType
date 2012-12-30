@@ -71,7 +71,7 @@ function reprintLyrics(){
 			$line3.html(lyrics[line_num+1]);
 	}
 }
-function checkInput(e){
+function checkInput(e, afterInput){
 	$a=$("#lyric_input");
 	b=lyrics[line_num];
 	var same_length= $a.val().length===b.length;
@@ -81,17 +81,21 @@ function checkInput(e){
 		coin_sound.load();
 		coin_sound.play();
 		var points=b.length-levenshteinenator($a.val(),b);
-		$a.val("");
-		$("#plus_points").fadeIn('slow');
-		$("#plus_points").fadeOut('slow');
-		$("#plus_points").html("+"+points+" points");
+		$a.val("");		
 		score+=points;
-		$("#score h3").html(score);
-		if(line_num<lyrics.length)
-			line_num+=1;
-		reprintLyrics();
-		$("#accuracy h3").html(calculateAccuracy()+"%");
+		afterInput(points);		
 	}
+}
+function afterInputTraining(points){
+	$plus_pts= $("#player_stats .plus_points");
+	$plus_pts.fadeIn('slow');
+	$plus_pts.fadeOut('slow');
+	$plus_pts.html("+"+points+" points");
+	$("#player_stats .score h3").html(score);
+	if(line_num<lyrics.length)
+		line_num+=1;
+	reprintLyrics();
+	$("#player_stats .accuracy h3").html(calculateAccuracy()+"%");
 }
 function formatLyrics(lyr){
 	return removePunctuation(lyr).toLowerCase();
