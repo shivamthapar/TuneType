@@ -1,6 +1,6 @@
+<!--
 {% extends "base.html" %}
 {% block page_title %}Training: {{song}} by {{artist}} {% endblock page_title %}
-{% block training %}active{% endblock training %}
 {% block javascript %}
 <script>
 	var lyrics, line_num, score, punctuation, lyrics_showing;
@@ -110,3 +110,4 @@
 	</div>
 </div>
 {% endblock container %}
+-->

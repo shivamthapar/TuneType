@@ -6,97 +6,9 @@
   /* Sticky footer styles
   -------------------------------------------------- */
 
-  html,
-  body {
-    height: 100%;
-    /* The html and body elements cannot have any padding or margin. */
-  }
-
-  /* Wrapper for page content to push down footer */
-  #wrap {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    /* Negative indent footer by it's height */
-    margin: 0 auto -40px;
-  }
-
-  /* Set the fixed height of the footer here */
-  #push,
-  #footer {
-    height: 40px;
-  }
-  #footer {
-  	margin-top: 0px;
-  }
-
-  /* Lastly, apply responsive CSS fixes as necessary */
-  @media (max-width: 767px) {
-    #footer {
-      margin-left: -20px;
-      margin-right: -20px;
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-  }
+  
 </style>
-{% endblock css %}
-{% block body %}
-<div id= "wrap">
-	<div id= "navbar" class="navbar navbar-inverse">
-		<div id= "navbar-inner" class="navbar-inner" style= "border-radius: 0px; -webkit-border-radius: 0px;">
-	    	<div class="container">
-					<a class="brand" id= "logo" href="{% url index %}">TuneType</a>
-				</div>
-			</div>
-	</div>
-	<div class="container">
-		<div id= "search_panel">
-			<div class= "row">
-				<div style= "text-align: center">
-					<h1>TuneType</h1>
-					<h4 style="color: #D2D2DD">Type along to your favorite songs!</h3>
-				</div>
-			</div>
-			<div>
-				<div style= "text-align: center">
-					<form class="form">
-					  <div class="control-group">
-					    <label class="control-label" for="inputArtist">Artist</label>
-					    <div class="controls">
-					      <input type="text" id="inputArtist" placeholder="">
-					    </div>
-					  </div>
-					  <div class="control-group">
-					    <label class="control-label" for="inputSong">Song</label>
-					    <div class="controls">
-					      <input type="text" id="inputSong" placeholder="">
-					    </div>
-					  </div>
-					  <div class="control-group">
-					    <div class="controls">
-					      <button type="submit" id= "search" class="btn">Train</button>
-					      <a href="" id= "battle" class="btn btn-danger">Battle!</a>
-					    </div>
-					  </div>
-					</form>
-				</div>
-			</div>
-		</div>		
-	</div>
-	<div id="push"></div>
-</div>
-<div id= "footer" class= "footer">
-	<div class= "container">
-		<h5 class= "footer_section">Built by <a href= "http://www.shivamthapar.com">Shivam Thapar</a></h5>
-	</div>
-</div>
-
-<!--SCRIPTS -->
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="{{STATIC_URL}}js/bootstrap.js"></script>
-<script src="{{STATIC_URL}}js/levenshtein.js"></script>
-<script src="{{STATIC_URL}}js/strcmp.js"></script>
+{% block javascript %}
 <script type= "text/javascript">    	
 	$(document).ready(function(){
 		var artists= ["The Beatles", "The Rolling Stones", "Pink Floyd", "Madonna", "Michael Jackson", "Led Zeppelin", "Tupac"];
@@ -125,4 +37,40 @@
 		}
 	}
 </script>
-{% endblock body %}
+{% endblock javascript %}
+{% endblock css %}
+{% block banner %}{% endblock banner %}
+{% block container %}
+	<div id= "search_panel">
+		<div class= "row">
+			<div style= "text-align: center">
+				<h1>TuneType</h1>
+				<h4 style="color: #D2D2DD">Type along to your favorite songs!</h3>
+			</div>
+		</div>
+		<div>
+			<div style= "text-align: center">
+				<form class="form">
+				  <div class="control-group">
+				    <label class="control-label" for="inputArtist">Artist</label>
+				    <div class="controls">
+				      <input type="text" id="inputArtist" placeholder="">
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="inputSong">Song</label>
+				    <div class="controls">
+				      <input type="text" id="inputSong" placeholder="">
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <div class="controls">
+				      <button type="submit" id= "search" class="btn">Train</button>
+				      <a href="" id= "battle" class="btn btn-danger">Battle!</a>
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+	</div>	
+{% endblock container %}

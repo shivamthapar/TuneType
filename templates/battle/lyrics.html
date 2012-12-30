@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% block page_title %}Training: {{song}} by {{artist}} {% endblock page_title %}
-{% block training %}active{% endblock training %}
 {% block javascript %}
 <script>
 	var lyrics, line_num, score, punctuation, lyrics_showing;
+	window.Player= {
+		userId: Math.floor(Math.random() * 10000000),
+        opponentId: null
+	}
 	$(document).ready(function(){
 		onLyricsLoad("{{lyrics}}");		
 	})
@@ -42,6 +45,9 @@
     }
 
 </script>
+<div id=pubnub pub-key="pub-c-c4bd4cf2-8560-42c9-8ce8-0c39f765dedd" sub-key="sub-c-35d69a0e-5143-11e2-aec7-12313f022c90"></div>
+<script src=http://cdn.pubnub.com/pubnub-3.1.min.js></script>
+<script src= "{{STATIC_URL}}js/battle.js"></script>
 <script src="{{STATIC_URL}}js/lyrics.js"></script>
 {% endblock javascript %}
 {% block banner_img %}img/swords.png{% endblock banner_img %}

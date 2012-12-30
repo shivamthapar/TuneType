@@ -20,28 +20,35 @@
 </head>
 <body id= "body">
 {% block body %}
-	<div id= "navbar" class="navbar navbar-inverse">
-		<div id= "navbar-inner" class="navbar-inner" style= "border-radius: 0px; -webkit-border-radius: 0px;">
-	    	<div class="container">
-  				<a class="brand" id= "logo" href="{% url index %}">TuneType</a>
-  			</div>
-  		</div>
-	</div>
-	{% block banner %}
-	<div class= "banner">
-		<div class="container">
-			<img src= "{{STATIC_URL}}{% block banner_img %}{% endblock banner_img %}" />
-			<h1>{% block banner_title %}Training{% endblock banner_title %}</h1>
+	<div id= "wrap">
+		<div id= "navbar" class="navbar navbar-inverse">
+			<div id= "navbar-inner" class="navbar-inner" style= "border-radius: 0px; -webkit-border-radius: 0px;">
+		    	<div class="container">
+	  				<a class="brand" id= "logo" href="{% url index %}">TuneType</a>
+	  				<ul class= "nav" id= "nav">
+		  				<li  class="{% block battle %}{% endblock battle %}"><a href= "#">Battle</a></li>
+		  				<li class= "{% block training %}{% endblock training %}"><a href= "#">Training</a></li>
+		  			</ul>
+	  			</div>
+	  		</div>
 		</div>
-	</div>
-	{% endblock banner %}
-	<div class="container">
-	{% block container %}
+		{% block banner %}
+		<div class= "banner">
+			<div class="container">
+				<img src= "{{STATIC_URL}}{% block banner_img %}{% endblock banner_img %}" />
+				<h1>{% block banner_title %}Training{% endblock banner_title %}</h1>
+			</div>
+		</div>
+		{% endblock banner %}
+		<div class="container">
+		{% block container %}
 
-	{% endblock container %}
+		{% endblock container %}
+		</div>
+		<div id="push"></div>
 	</div>
 	{% block footer %}
-	<div class= "footer">
+	<div id= "footer" class= "footer">
 		<div class= "container">
 			<h5 class= "footer_section">Built by <a href= "http://www.shivamthapar.com">Shivam Thapar</a></h5>
 		</div>

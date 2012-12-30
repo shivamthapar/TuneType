@@ -9,13 +9,17 @@ def index(request):
 	title= "String check"
 	return render_to_response('training/index.html', {'title': title},RequestContext(request))
 def lyrics(request, artist, song):
+	result=getVideoAndLyrics(artist,song)
+	return render_to_response('training/lyrics.html', result,RequestContext(request))
+def getVideoAndLyrics(artist, song):
 	artist= artist.replace('+',' ')
 	song= song.replace('+',' ')
 	song_lyrics= LyricFetcher.scrape_lyrics(artist,song)
 	song_lyrics=re.sub("’","'",song_lyrics)
 	js_lyrics=formatJSLyrics(song_lyrics)
 	video=getVideo(artist,song)
-	return render_to_response('training/lyrics.html', {'artist': artist.replace('+',' '), 'song': song.replace('+',' '), 'lyrics': formatLyrics(song_lyrics), 'js_lyrics': js_lyrics, 'video_id': getVideoId(video), 'video':video.GetSwfUrl(),},RequestContext(request))
+	arr= {'artist': artist, 'song': song, 'lyrics':formatLyrics(song_lyrics), 'js_lyrics': js_lyrics, 'video_id': getVideoId(video), 'video':video.GetSwfUrl()}
+	return arr
 def formatJSLyrics(lyr):
 	lyr=lyr.lower()
 	lyr=re.sub('\n+','|',lyr)

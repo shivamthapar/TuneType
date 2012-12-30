@@ -67,6 +67,12 @@ h4, h5, h6, p, a, label{
 #score h3{
 	display: inline;
 	margin-right: 5px;
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+}
+#accuracy h3{
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
 }
 .left{
 	float: left;
@@ -91,25 +97,42 @@ h4, h5, h6, p, a, label{
 #logo{
 	color: white;
 }
+#nav{
+	float: right;
+}
+#nav li a{
+	text-shadow: none;
+	color: white;
+}
+#nav li a:hover{
+	color: black;
+}
+#nav li.active a{
+	color: black;
+	background-color: #FFAC30;
+	text-shadow: none;
+}
 #body{
 	background: url(../img/grey.png);
 }
 .banner{
 	width: 100%;
 	height: 40px;
-	background: #1e1e1e;
+	background: #3F4C61;
 	font-family: 'Domine', serif;
 	color: white;
-	padding: 15px 0;
+	padding: 10px 0;
 }
 .banner h1{
 	margin-left: 10px;
-	font-size: 30px;
+	font-size: 29px;
 	display: inline;
 	font-weight: 400;
+	text-shadow: 1px 1px 2px black;
+	color: white;
 }
 .banner img{
-	height:40px;
+	height:30px;
 }
 .footer{
 	width: 100%;
@@ -130,4 +153,38 @@ h4, h5, h6, p, a, label{
 	background: white;	
 	padding: 20px 0;
 	margin: 20px auto 0 auto;
+}
+
+html,
+body {
+height: 100%;
+/* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+min-height: 100%;
+height: auto !important;
+height: 100%;
+/* Negative indent footer by it's height */
+margin: 0 auto -40px;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+height: 40px;
+}
+#footer {
+	margin-top: 0px;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+#footer {
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
 }
