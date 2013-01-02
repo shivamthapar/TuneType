@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block page_title %}OH NOES{% endblock page_title %}}
+{% block css %}
+#floater	{float:left; height:50%; margin-bottom:-120px;}
+#content	{clear:both; height:240px; position:relative;margin:0 auto;}
+{% endblock css %}
 {% block banner %}{% endblock banner %}
 {% block container %}
-OHNOESWECOULDNOTFINDTHATPAGE.
+<div id="floater">
+<div id="content" class= "span6">
+	Content here
+</div>
+</div>
+
 {% endblock container %}
