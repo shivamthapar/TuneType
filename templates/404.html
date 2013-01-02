@@ -2,15 +2,17 @@
 {% block page_title %}OH NOES{% endblock page_title %}
 {% block css %}
 <style>
-#floater	{height:50%; margin-bottom:-120px; margin: 0 auto; width: 460px; float: none;}
-#content	{clear:both; height:240px; position:relative;margin:0 auto;background: white}
+#floater	{margin: 100px auto; width: 460px; float: none;}
+#content	{clear:both; height:240px; position:relative;margin:0 auto;background: white;text-align: center;}
 </style>
 {% endblock css %}
 {% block banner %}{% endblock banner %}
 {% block container %}
 <div id="floater" class= "span6">
 	<div id="content">
-		Content here
+		<h1>404.</h1>
+		<h3>ohnoeswecouldntfindthatpage.</h3>
+		<h4><a href= "{% url index %}">Please go home.</a></h4>
 	</div>
 </div>
 
