@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block page_title %}404 ERROR: OH NOES{% endblock page_title %}
+{% block page_title %}500 ERROR: OH NOES{% endblock page_title %}
 {% block css %}
 <style>
 #floater	{margin: 100px auto; width: 460px; float: none;}
@@ -10,8 +10,8 @@
 {% block container %}
 <div id="floater" class= "span6">
 	<div id="content">
-		<h1>404.</h1>
-		<h3>ohnoeswecouldntfindthatpage.</h3>
+		<h1>500.</h1>
+		<h3>somethingbadishappening.</h3>
 		<h4><a href= "{% url index %}">Please go home.</a></h4>
 	</div>
 </div>
