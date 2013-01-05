@@ -8,6 +8,7 @@
 
   
 </style>
+{% endblock css %}
 {% block javascript %}
 <script type= "text/javascript">    	
 	$(document).ready(function(){
@@ -21,9 +22,11 @@
 	})
 	function toTitleCase(str)
 	{
-		str=str.replace(/\b./g, function(m){ return m.toUpperCase(); });
+		var regex= /[\s\-_][a-z0-9-_]/;
+		str=str.charAt(0).toUpperCase()+str.substring(1,str.length);
+		str=str.replace(regex, function(m){ return m.toUpperCase(); });
 		str=str.replace(/\s/g, "+");
-	    return str;
+		return str;
 	}
 	function goToLyrics(page){
 		return function(){
@@ -38,7 +41,6 @@
 	}
 </script>
 {% endblock javascript %}
-{% endblock css %}
 {% block banner %}{% endblock banner %}
 {% block container %}
 	<div id= "search_panel">
