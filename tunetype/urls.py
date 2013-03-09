@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 import views
+from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -9,6 +10,7 @@ urlpatterns = patterns('',
 	 url(r'^$',views.index, name='index'),
      url(r'^training/', include('training.urls')),
      url(r'^battle/', include('battle.urls')),
+
     # url(r'^tunetype/', include('tunetype.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -17,3 +19,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 )
+if not settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    )

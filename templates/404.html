@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block page_title %}404 ERROR: OH NOES{% endblock page_title %}
+{% block css %}
+<style>
+#floater	{margin: 100px auto; width: 460px; float: none;}
+#content	{clear:both; padding: 10px; position:relative;margin:0 auto;background: white;text-align: center;}
+</style>
+{% endblock css %}
+{% block banner %}{% endblock banner %}
+{% block container %}
+<div id="floater" class= "span6">
+	<div id="content">
+		<h1>404.</h1>
+		<h3>ohnoeswecouldntfindthatpage.</h3>
+		<h4><a href= "{% url index %}">Please go home.</a></h4>
+	</div>
+</div>
+
+{% endblock container %}
